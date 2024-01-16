@@ -32,6 +32,7 @@ body {
   max-width: 100%;
   height: auto;
   transition: transform 0.2s;
+  cursor: url("../icon/bxs_hand-down.png"), pointer;
 }
 
 .gallery-link:hover .gallery-image {
@@ -73,17 +74,6 @@ body {
 .lightbox__image {
   max-width: 100%;
   height: auto;
-}
-
-.lightbox__button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: url(../icon/icons.svg#icon-Vector);
 }
 
 .lightbox {
