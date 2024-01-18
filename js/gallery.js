@@ -65,11 +65,6 @@ const images = [
 ];
 
 const gallery = document.querySelector('.gallery');
-const lightbox = document.querySelector('.lightbox');
-const lightboxOverlay = document.querySelector('.lightbox__overlay');
-const lightboxContent = document.querySelector('.lightbox__content');
-const lightboxImage = document.querySelector('.lightbox__image');
-const lightboxButton = document.querySelector('.lightbox__button');
 
 function createGalleryItem({ preview, original, description }) {
   const listItem = document.createElement('li');
@@ -96,26 +91,25 @@ function openLightbox(event) {
 
   if (event.target.nodeName === 'IMG') {
     const largeImageURL = event.target.dataset.source;
-    lightboxImage.src = largeImageURL;
-    lightbox.classList.add('is-open');
-    window.addEventListener('keydown', handleKeyPress);
-  }
-}
 
-function closeLightbox() {
-  lightboxImage.src = '';
-  lightbox.classList.remove('is-open');
-  window.removeEventListener('keydown', handleKeyPress);
-}
+    const instance = basicLightbox.create(`
+      <img src="${largeImageURL}" alt="Large Image">
+    `);
 
-function handleKeyPress(event) {
-  if (event.code === 'Escape') {
-    closeLightbox();
+    instance.show();
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    function handleKeyPress(event) {
+      if (event.code === 'Escape') {
+        instance.close();
+        document.removeEventListener('keydown', handleKeyPress);
+      }
+    }
   }
 }
 
 gallery.addEventListener('click', openLightbox);
-lightboxOverlay.addEventListener('click', closeLightbox);
 
 images.forEach(image => {
   const galleryItem = createGalleryItem(image);
